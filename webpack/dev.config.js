@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-const assetsPath = path.resolve(__dirname, '../public/assets');
+// const assetsPath = path.resolve(__dirname, '../public/assets');
+const assetsPath = path.resolve(__dirname, 'dist');
 const { webpackHost, webpackPort } = require('../config/env');
 
 const webpackIsomorphicToolsConfig = require('./webpack-isomorphic-tools');
@@ -21,7 +22,7 @@ module.exports = {
   },
   output: {
     path: assetsPath,
-    filename: '[name]-[hash].js',
+    filename: '[name].js',
     chunkFilename: '[name]-[chunkhash].js',
     publicPath: `http://${webpackHost}:${webpackPort}/assets/`,
   },
@@ -30,11 +31,15 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
+        loaders: ['react-hot','babel']
       },
+      // {
+      //   test: /\.css$/,
+      //   loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss',
+      // },
       {
-        test: /\.css$/,
-        loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss',
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -82,6 +87,7 @@ module.exports = {
       __DEVTOOLS__: true,
       'process.env': {
         NODE_ENV: '"development"',
+        BROWSER: JSON.stringify(true),
       },
     }),
     webpackIsomorphicToolsPlugin.development(),
