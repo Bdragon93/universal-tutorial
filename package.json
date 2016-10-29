@@ -1,0 +1,67 @@
+{
+  "name": "universal-tutorial",
+  "version": "1.0.0",
+  "description": "Study project for universal and redux",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently --kill-others \"npm run dev-api\" \"npm run dev-server\" \"npm run webpack-dev-server\"",
+    "dev-api": "NODE_ENV=development nodemon --exec babel-node ./bin/api.js",
+    "dev-server": "NODE_ENV=development nodemon --exec babel-node ./bin/server.js",
+    "webpack-dev-server": "NODE_ENV=development babel-node ./bin/webpack-dev-server.js",
+    "start": "concurrently --kill-others \"npm run start-api\" \"npm run start-server\"",
+    "start-api": "NODE_ENV=production babel-node ./bin/api.js",
+    "start-server": "NODE_ENV=production babel-node ./bin/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bdragon93/universal-tutorial.git"
+  },
+  "keywords": [
+    "universal",
+    "webpack",
+    "react",
+    "redux"
+  ],
+  "author": "Bdragon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bdragon93/universal-tutorial/issues"
+  },
+  "homepage": "https://github.com/Bdragon93/universal-tutorial#readme",
+  "dependencies": {
+    "autoprefixer": "^6.5.1",
+    "babel-cli": "^6.16.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "concurrently": "^3.1.0",
+    "css-loader": "^0.25.0",
+    "express": "^4.14.0",
+    "file-loader": "^0.9.0",
+    "http-proxy": "^1.15.1",
+    "postcss-loader": "^1.1.0",
+    "pretty-error": "^2.0.2",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.8.1",
+    "react-router-redux": "^4.0.6",
+    "redux": "^3.6.0",
+    "serialize-javascript": "^1.3.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2",
+    "webpack-isomorphic-tools": "^2.6.3"
+  },
+  "devDependencies": {
+    "concurrently": "^3.1.0",
+    "nodemon": "^1.11.0",
+    "redux-devtools": "^3.3.1",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.1.1",
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-hot-middleware": "^2.13.0"
+  }
+}
