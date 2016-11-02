@@ -1,10 +1,12 @@
 import { createStore as _createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
+import apiMiddleware   from '../lib/apiMiddleware';
 
 function createStoreWithReducer(history, data, reducer) {
   const reduxRouterMiddleware = routerMiddleware(history);
   const middleware = [
     reduxRouterMiddleware,
+    apiMiddleware
   ];
 
   // const finalCreateStore = applyMiddleware(...middleware)(_createStore);
@@ -12,7 +14,7 @@ function createStoreWithReducer(history, data, reducer) {
   let finalCreateStore;
   if (process.env.NODE_ENV === 'development' && __CLIENT__ && __DEVTOOLS__) {
     const { persistState } = require('redux-devtools');
-    const DevTools = require('../containers/DevTools');
+    const DevTools = require('../components/DevTools');
     finalCreateStore = compose(
       applyMiddleware(...middleware),
       global.devToolsExtension ? global.devToolsExtension() : DevTools.instrument(),

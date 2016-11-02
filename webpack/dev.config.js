@@ -72,10 +72,7 @@ module.exports = {
   },
   progress: true,
   resolve: {
-    modulesDirectories: [
-      'node_modules',
-      'src',
-    ],
+    modulesDirectories: ['node_modules', 'src'],
     extensions: ['', '.json', '.js', '.jsx'],
   },
   plugins: [

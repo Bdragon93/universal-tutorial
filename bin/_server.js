@@ -15,6 +15,7 @@ import {
 import getRoutes from '../src/routes';
 import Default from '../src/layouts/Default';
 import { port, apiHost, apiPort } from '../config/env';
+import fetchComponentData from '../src/lib/fetchComponentData';
 
 const targetUrl = `http://${apiHost}:${apiPort}`;
 const pretty = new PrettyError();
@@ -71,7 +72,11 @@ app.use((req, res) => {
       console.error('ROUTER ERROR:', pretty.render(error));
       res.status(500);
       hydrateOnClient();
-    } else if (renderProps) {
+    } else if (!renderProps) {
+      res.status(404).send('Not found');
+    }
+
+    function renderView() {
       const component = (
         <Provider store={store} key="provider">
           <RouterContext {...renderProps} />
@@ -79,10 +84,13 @@ app.use((req, res) => {
       );
       res.status(200);
       global.navigator = { userAgent: req.headers['user-agent'] };
-      res.send(`<!doctype html>${ReactDOM.renderToStaticMarkup(<Default assets={webpackIsomorphicTools.assets()} component={component} store={store} />)}`);
-    } else {
-      res.status(404).send('Not found');
+      return (`<!doctype html>${ReactDOM.renderToStaticMarkup(<Default assets={webpackIsomorphicTools.assets()} component={component} store={store} />)}`);
     }
+
+    fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
+      .then(renderView)
+      .then(html => res.end(html))
+      .catch(err => res.end(err.message));
   });
 });
 app.listen(port, (err) => {

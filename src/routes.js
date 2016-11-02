@@ -4,7 +4,7 @@ import {
   App,
   Home,
   NotFound,
-} from './containers';
+} from './components';
 export default (store) => { // eslint-disable-line
   return (
     <Route path="/" component={App}>

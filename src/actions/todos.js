@@ -8,6 +8,7 @@ export function createTodo(text) {
 }
 
 export function getTodos() {
+  console.log('action get todos');
   return {
     type: 'GET_TODOS',
     promise: request.get(BACKEND_URL)
